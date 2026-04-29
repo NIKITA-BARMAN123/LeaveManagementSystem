@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard - AI Leave Agent</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);;
+      gap: 40px;
+      margin-top: 16px;
+    }
+    @media (max-width: 600px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .option-card {
+      background: white;
+      border-radius: 14px;
+      padding: 20px;
+      border: 1px solid #e2e8f0;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+    }
+
+    /* hover effect */
+    .option-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(53, 162, 251, 0.868);
+    }
+
+    /* top color strip */
+    .option-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, #2563eb, #4f46e5);
+    }
+
+    .option-card p {
+      color: #444;
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .dashboard-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .dashboard-badge {
+      min-width: 22px;
+      height: 22px;
+      padding: 0 8px;
+      border-radius: 999px;
+      background: #2563eb;
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .dashboard-page .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100%;
+    }
+
+    .dashboard-page {
+      display: flex;
+      justify-content: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 🔷 HEADER (FULL WIDTH, NOT A CARD) -->
+  <header class="header">
+    <div>
+      <strong>Leave System</strong>
+      <div class="small">
+        <span id="who"></span> • 
+        <span id="roleLabel"></span> • 
+        <span id="emailLabel"></span>
+      </div>
+    </div>
+
+    <div class="top-actions">
+      
+      <button class="btn-secondary" onclick="goToRoleHome()">Panel</button>
+      <button onclick="logout()">Logout</button>
+    </div>
+  </header>
+
+  <!-- 🔷 MAIN CONTENT -->
+  <main class="main-content dashboard-page">
+    <div class="container">
+
+      <div class="card">
+        <h3 id="dashboardTitle" style="text-align: center;">Your Options</h3>
+        <p class="small" id="dashboardSubtitle" style="text-align: center; color:rgb(33, 54, 173)">Choose what you want to do.</p>
+
+        <div id="dashboardOptions" class="dashboard-grid"></div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- 🔷 FOOTER -->
+  <footer class="footer">
+    <p>© 2026 AI Leave Management System</p>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/dashboard.js"></script>
+
+</body>
+</html>

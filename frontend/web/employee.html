@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Employee Panel - AI Leave Agent</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+
+  <!-- 🔷 HEADER -->
+  <header class="header">
+    <div>
+      <h2>Employee Panel</h2>
+      <div class="small">Logged in as: <span id="who"></span></div>
+    </div>
+
+    <div class="header-right">
+      <button onclick="window.location.href='dashboard.html'">Dashboard</button>
+      <button onclick="logout()">Logout</button>
+    </div>
+  </header>
+
+  <!-- 🔷 MAIN -->
+  <main class="main-content">
+    <div class="container">
+
+      <div class="admin-grid-l">
+      <div class="card section-card" id="apply-leave">
+        <h3 style="text-align: center;">Apply Leave (Chat)</h3>
+        
+        <br/>
+        <input id="chatMsg" placeholder="Type your leave request..." />
+        <br/><p class="small" style="text-align: center;"><i>Example: <b>I want leave from 15 March 2026 to 16 March 2026 because of fever</b></i></p><br/>
+        <div style="margin-top:12px;text-align: center;">
+          <button type="button" id="sendBtn">Send</button>
+        </div>
+        <pre id="chatOut" class="small" style="margin-top:12px;"></pre>
+      </div>
+
+      <div class="card-l section-card" id="leave-balance">
+        <h3 style="text-align: center;">Leave Balance</h3>
+        <div style="text-align: center;"><button style="background: #3b82c9e6;color:rgb(255, 255, 255)" onclick="refreshBalanceWithLog()">Refresh Balance</button></div>
+        <div id="balanceOut" style="margin-top:12px;"></div>
+      </div>
+
+      <div class="card-l section-card" id="leave-history">
+        <h3 style="text-align: center;">Leave History</h3>
+        <div style="text-align: center;"><button style="background: #3b82c9e6;color:rgb(255, 255, 255)" onclick="refreshHistoryWithLog()">Refresh History</button></div>
+        <div id="historyOut" style="margin-top:12px;"></div>
+      </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- 🔷 FOOTER -->
+  <footer class="footer">
+    <p>© 2026 AI Leave Management System</p>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/employee.js"></script>
+
+  <script>
+    async function showSectionsByMode() {
+      const hash = window.location.hash;
+      const applySection = document.getElementById("apply-leave");
+      const balanceSection = document.getElementById("leave-balance");
+      const historySection = document.getElementById("leave-history");
+
+      if (!hash || hash === "#full-panel") {
+        applySection.style.display = "block";
+        balanceSection.style.display = "block";
+        historySection.style.display = "block";
+
+        await loadBalance();
+        await loadHistory();
+        return;
+      }
+
+      applySection.style.display = "none";
+      balanceSection.style.display = "none";
+      historySection.style.display = "none";
+
+      if (hash === "#apply-leave") applySection.style.display = "block";
+      else if (hash === "#leave-balance") {
+        balanceSection.style.display = "block";
+        await loadBalance();
+      }
+      else if (hash === "#leave-history") {
+        historySection.style.display = "block";
+        await loadHistory();
+      }
+    }
+    window.addEventListener("hashchange", () => {
+      console.log("HASH CHANGED");
+    });
+    window.addEventListener("load", showSectionsByMode);
+    window.addEventListener("hashchange", showSectionsByMode);
+  </script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html> 
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Leave Agent - Login</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <!--<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">-->
+  <style>
+    .dashboard-page .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100%;
+    }
+
+    .dashboard-page {
+      display: flex;
+      justify-content: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 🔷 HEADER -->
+  <header class="header-center" >
+    <br/><br/>
+    <b style="font-size:25px; font-weight: 600pt; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">Leave Management System</b>
+    <br/><br/>
+  </header>
+
+  <!-- 🔷 MAIN -->
+  <main class="main-content dashboard-page">
+    <div class="container">
+  <div class="card-login">
+
+    <h3 style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Sign in with email and password</h3>
+    <p style="font-size: 14px; color: #555;">
+      Login to continue
+    </p>
+
+    <input id="email" placeholder="Email" />
+    <input id="password" type="password" placeholder="Password" />
+
+    <button onclick="login()">Get Started</button>
+
+    <p id="msg" style="color:red; font-size:13px;"></p>
+
+  </div>
+</div>
+  </main>
+
+  <!-- 🔷 FOOTER -->
+  <footer class="footer">
+    <p>© 2026 AI Leave Management System</p>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/login.js"></script>
+
+</body>
+</html>

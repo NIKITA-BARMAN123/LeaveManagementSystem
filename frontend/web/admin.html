@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin - AI Leave Agent</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  
+  <header class="header">
+    <div>
+      <h2>Admin Panel</h2>
+      <div class="small">Logged in as: <span id="who"></span></div>
+    </div>
+
+    <div class="header-right">
+      <button onclick="window.location.href='dashboard.html'">Dashboard</button>
+      <button onclick="logout()">Logout</button>
+    </div>
+  </header>
+
+  <main class="main-content">
+
+  <div class="container-full">
+
+    <div class="admin-grid ">
+      <br/><br/><br/>
+    <div class="card section-card" id="create-user">
+      <h3 style="text-align: center;">Create User</h3>
+      <div class="row">
+        <div style="flex:1;">
+          <label>Name</label>
+          <input id="userName" placeholder="Enter full name" required/>
+        </div>
+        <div style="flex:1;">
+          <label>Email</label>
+          <input id="userEmail" placeholder="Enter email" required/>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:12px;">
+        <div style="flex:1;">
+          <label>Password</label>
+          <input id="userPassword" type="password" required placeholder="Enter password" />
+        </div>
+        <div style="flex:1;">
+          <label>Role</label>
+          <select id="userRole" onchange="toggleManagerField()">
+            <option value="EMPLOYEE">EMPLOYEE</option>
+            <option value="MANAGER">MANAGER</option>
+            <option value="ADMIN">ADMIN</option>
+          </select>
+        </div>
+      </div>
+      <div id="managerField" style="margin-top:12px; display:none;">
+        <div class="row">
+          <div style="flex:1;">
+            <label>Manager ID</label>
+            <input id="managerId" type="number" placeholder="Enter manager ID" required/>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:12px; text-align: center;">
+        <button onclick="createUser()">Create User</button>
+      </div>
+
+      <pre id="createUserOut" class="small" style="white-space:pre-wrap; margin-top:12px;"></pre>
+    </div>
+    
+    <div class="card section-card" id="create-leave-type">
+      <h3 style="text-align: center;">Create Leave Type</h3>
+
+      <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 15px;">
+
+        <!-- Row 1 -->
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <label style="width: 160px;">Leave Type Name</label>
+          <input id="leaveTypeName" 
+                placeholder="Example: Casual Leave" 
+                style="flex:1;" />
+        </div>
+        <br/>
+        <!-- Row 2 -->
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <label style="width: 160px;">Default Allocation</label>
+          <input id="leaveTypeAllocation" 
+                type="number" 
+                placeholder="Example: 12" 
+                style="flex:1;" />
+        </div>
+
+      </div>
+      <br/>
+      <div style="margin-top:20px; text-align: center;">
+        <button onclick="createLeaveType()">Create Leave Type</button>
+      </div>
+
+      <pre id="leaveTypeOut" class="small" style="white-space:pre-wrap; margin-top:12px;"></pre>
+    </div>
+    </div>
+    <br/><br/>
+
+    <div class="admin-grid-l">
+    <div class="card-l section-card" id="all-request">
+      <h3>All Leave Requests</h3>
+      <button onclick="refreshAdminRequestsWithLog()">Refresh Requests</button>
+      <div id="requestsOut" style="margin-top:12px;"></div>
+    </div>
+    
+    <div class="card-l2 section-card" id="audit-logs">
+      <h3>Audit Logs</h3>
+      <button onclick="refreshAuditLogsWithLog()">Refresh Audit Logs</button>
+      <div id="auditOut" style="margin-top:12px;"></div>
+    </div>
+    </div>
+  </div>
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 AI Leave Management System</p>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/admin.js"></script>
+  <script>
+    function showOnlySelectedSection() {
+      const hash = window.location.hash;
+      const sections = document.querySelectorAll(".section-card");
+
+      if (!hash) {
+        sections.forEach(section => {
+          section.style.display = "block";
+        });
+        return;
+      }
+
+      const selected = document.querySelector(hash);
+
+      if (!selected) {
+        sections.forEach(section => {
+          section.style.display = "block";
+        });
+        return;
+      }
+
+      sections.forEach(section => {
+        if ("#" + section.id === hash) {
+          section.style.display = "block";
+        } else {
+          section.style.display = "none";
+        }
+      });
+    }
+
+    window.addEventListener("load", showOnlySelectedSection);
+  </script>
+</body>
+</html>
